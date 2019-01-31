@@ -75,3 +75,14 @@ class MYSQL:
                                                      ','.join('\'' + str(it) + '\'' for it in values))
         self.query(q, commit=True)
         return "Ok! {}".format(q)
+
+
+    def delete(self, table, args):
+        """
+        :param table: table in bd
+        :param args: string with param which must delete
+        :return:
+        """
+        q = "DELETE FROM {} WHERE {}".format('`' + table + '`', args)
+        print(q)
+        self.query(q, commit=True)
