@@ -84,5 +84,16 @@ class MYSQL:
         :return:
         """
         q = "DELETE FROM {} WHERE {}".format('`' + table + '`', args)
-        print(q)
+        self.query(q, commit=True)
+
+
+    def update(self, table, args, **kwargs):
+        """
+        :param table: table in db
+        :param args: where will update
+        :param kwargs: what will update
+        :return:
+        """
+        columns = [str(it + "=" + '\'' + kwargs[it] + '\'') for it in kwargs]
+        q = "UPDATE {} SET {} WHERE {}".format('`' + table + '`', ','.join([str(it) for it in columns]), args)
         self.query(q, commit=True)
