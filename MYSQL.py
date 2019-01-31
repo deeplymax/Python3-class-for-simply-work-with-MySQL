@@ -97,3 +97,16 @@ class MYSQL:
         columns = [str(it + "=" + '\'' + kwargs[it] + '\'') for it in kwargs]
         q = "UPDATE {} SET {} WHERE {}".format('`' + table + '`', ','.join([str(it) for it in columns]), args)
         self.query(q, commit=True)
+
+    def replace(self, table, **kwargs):
+        """
+        :param table:
+        :param kwargs:
+        :return:
+        """
+        columns = [it for it in kwargs]
+        values = [kwargs[it] for it in kwargs]
+        q = "REPLACE INTO {} ({}) VALUES ({})".format('`' + table + '`',
+                                                      ','.join(['`' + str(it) + '`' for it in columns]),
+                                                      ','.join('\'' + str(it) + '\'' for it in values))
+        self.query(q, commit=True)
